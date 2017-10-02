@@ -1,0 +1,68 @@
+{
+	"project" : 
+	[
+		{
+		"name" : "project navn",
+		"_id": "project id",
+		"users" : 
+			[
+				{
+					"_id" : "user id", 
+					"firstname" : "John", 
+					"lastname" : "Doe", 
+					"phonenumber1" : "123", 
+					"phonenumber2" : "234",
+					"role" : "admin"
+				}	
+			],
+		"log": 
+			[
+				{
+					"_id" : "log id",
+					"submitter" : "user id",
+					"timestamp" : "log created",
+					"comment" : "comment or data on the commit",
+					"event" : { "type" : "created, deleted etc" , "target" : "'type/id' - who was the target", "path" : "path to file"}
+				}
+			],
+		"componentType":
+			[
+				{
+					"_id" : "componentType id",
+					"name" : "componentType name",
+					"category" : "metadata - category",
+					"storage" : "storage on the componentType, fx count",
+					"description" : "description on the componentType",
+					"component": 
+						[	
+							{
+								"_id" :"component id",
+								"status" : "metadata - status on the component, fx deleted, destroyed, used",
+								"comment" : "comment or info on the component. Ex. front wheel, deffect on the rear etc.",
+								"timestamp" : "component created"
+							}
+						],
+						"componentLog":
+							[
+								{
+									"_id" : "compnentlog id",
+									"submitter" : "user id",
+									"timestamp" : "log created",
+									"comment" : "comment or data on the commit",
+									"event" : { "type" : "created, deleted etc" , "target" : "'document/type/id' - who was the target", "path" : "path to file"}
+								}
+							],
+						"document":
+							[
+								{
+									"_id" : "document id",
+									"filename" : "name on file",
+									"bucketPath" : "path to file on the system",
+									"description" : "bla bla, text"
+								}
+							]
+				},
+			]
+		}
+	]
+}
