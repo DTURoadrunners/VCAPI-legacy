@@ -1,7 +1,7 @@
 'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Event = require('Event');
+var Event = mongoose.require('Event');
 
 
 var LogSchema = new Schema({
