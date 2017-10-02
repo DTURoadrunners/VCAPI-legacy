@@ -1,7 +1,7 @@
 'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-//var Event = mongoose.require('Event');
+var eventModel = require('./eventModel.js');
 
 
 var LogSchema = new Schema({
@@ -23,7 +23,7 @@ var LogSchema = new Schema({
         required: 'Submition comment'
     },
     event: {
-        type: [module.exports.Event],
+        type: [eventModel.Schema],
         required: 'Type of change to the file'
     }
 

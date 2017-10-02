@@ -2,10 +2,10 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var userModel = require('userModel');
+var userModel = require('./userModel.js');
+var logModel = require('./LogModel.js');
+var componentModel = require('./componentTypeModel.js');
 
-
-var user = require('./userModel');
 
 var ProjectSchema = new Schema({
 	name: {
@@ -17,8 +17,8 @@ var ProjectSchema = new Schema({
 		default: Date.now 
 	},
 	users: [userModel.schema],
-	log: [module.exports.Log],
-	component_type: [module.exports.ComponentType]
+	log: [logModel.schema],
+	component_type: [componentModel.schema]
 
 });
 

@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var Component = mongoose.model('Component');
 var Schema = mongoose.Schema;
 
+var componentModel = require('./componentTypeModel.js');
 
 var componentTypeSchema = new Schema({
   name: {
@@ -22,7 +23,7 @@ var componentTypeSchema = new Schema({
     require: 'Kindly enter the description of the component type'
   },
   component: {
-    type: [module.exports.Component],
+    type: [componentModel.Schema],
     require: 'Kindly enter the component of the component type'
   }
 
