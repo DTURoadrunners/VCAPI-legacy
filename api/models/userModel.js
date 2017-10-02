@@ -33,4 +33,4 @@ var UserSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('User', TaskSchema);
+module.exports = mongoose.model('User', UserSchema);

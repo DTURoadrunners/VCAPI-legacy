@@ -1,6 +1,6 @@
 'use strict';
-var mongoose = require('mongoose'), 
-    Component = mongoose.model('Component');
+var mongoose = require('mongoose');
+var Component = mongoose.model('Component');
 var Schema = mongoose.Schema;
 
 
@@ -22,7 +22,7 @@ var componentTypeSchema = new Schema({
     require: 'Kindly enter the description of the component type'
   },
   component: {
-    type: Component,
+    type: [module.exports.Component],
     require: 'Kindly enter the component of the component type'
   }
 

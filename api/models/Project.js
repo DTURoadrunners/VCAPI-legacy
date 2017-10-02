@@ -1,14 +1,25 @@
+'use strict';
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var userModel = require('userModel');
+
+
+var user = require('./userModel');
+
 var ProjectSchema = new Schema({
 	name: {
-		type: string,
+		type: String,
 		required: "Projects must have a name"
 	},
 	creation_date: {
 		type: Date,
 		default: Date.now 
 	},
-	users: [Users],
-	log: [LogEntries]
-	component_type: [ComponentType]
+	users: [userModel.schema],
+	log: [module.exports.Log],
+	component_type: [module.exports.ComponentType]
 
 });
+
+module.exports = mongoose.model('Project', ProjectSchema);

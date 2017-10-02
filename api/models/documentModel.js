@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-var ´DocimentSchema = new Schema({
+var DocumentSchema = new Schema({
   fileName: {
     type: String,
     required: 'Kindly enter the name of the file'
@@ -21,4 +21,4 @@ var ´DocimentSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('Document', TaskSchema);
+module.exports = mongoose.model('Document', DocumentSchema);
