@@ -3,29 +3,18 @@ var Schema = mongoose.Schema;
 
 
 var EventSchema = new Schema({
-  _id: {
+  type: {
     type: String,
-    required: 'Kindly enter the id of the user'
+    enum: ['Created', 'Deleted', 'Changed'],
+    required: 'Kindly enter the type of the event'
   },
-  Firstname: {
+  target: {
     type: String,
-    required: 'Kindly enter the firstname of the user'
+    required: 'Kindly enter the target of the event'
   },
-  Lastname: {
+  path: {
     type: String,
-    required: 'Kindly enter the lastname of the user'
-  },
-  phone_number_1: {
-    type: String,
-    required: 'Kindly enter the users phone number'
-  },
-  phone_number_2: {
-    type: String
-  },
-  role: {
-    type: String,
-    enum: ['superuser', 'admin', 'user', 'guest'],
-    required: 'Kindly enter a role for the user'
+    required: 'Kindly enter the path to the file'
   },
   Created_date: {
     type: Date,
@@ -33,4 +22,4 @@ var EventSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('User', TaskSchema);
+module.exports = mongoose.model('Event', TaskSchema);
