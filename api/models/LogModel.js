@@ -23,8 +23,23 @@ var LogSchema = new Schema({
         required: 'Submition comment'
     },
     event: {
-        type: [eventModel.Schema],
-        required: 'Type of change to the file'
+        type: {
+            type: String,
+            enum: ['Created', 'Deleted', 'Changed'],
+            required: 'Kindly enter the type of the event'
+        },
+        target: {
+            type: String,
+            required: 'Kindly enter the target of the event'
+        },
+        path: {
+            type: String,
+            required: 'Kindly enter the path to the file'
+        },
+        Created_date: {
+            type: Date,
+            default: Date.now
+        }
     }
 
 });
