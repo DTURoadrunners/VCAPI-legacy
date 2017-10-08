@@ -2,6 +2,7 @@
 var mongoose = require('mongoose');
 var UserInfo = mongoose.model('User'); 
 var bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
 const saltRounds = 2;
 
 exports.signup_user = function(req, res){
@@ -54,5 +55,31 @@ exports.signup_user = function(req, res){
 };
 
 exports.login = function(req, res){
-	
+	if(!req.body){
+		return res.json(400, { error : "No login information supplied"});
+	}	
+	if(!req.body.username){
+		return res.json(400, { error : "No username supplied"});
+	}
+	if(!req.body.password){
+		return res.json(400, { error : "No password supplied"});
+	}
+
+	UserInfo.findById(req.body.username, function(err, usr){
+		if(!usr){
+			return res.status(404).send(err);
+		}
+		bcrypt.compare(req.body.password, usr.password, function(err, equal){
+			if(equal){
+			//Create JWT	
+				let token = jwt.sign({'uid' : req.body.username}, 'secretkey',  
+								{ expiresIn: 3600 });
+				return res.json(200, { jwt: token});
+			}
+			else {
+				return res.json(400, { error : "Invalid password" });
+			}
+		});
+		
+	});
 }

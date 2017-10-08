@@ -24,4 +24,5 @@ module.exports = function(app) {
 
 	 // login
 	app.post('/signup', loginController.signup_user);  
+	app.put('/login', loginController.login);
 };
