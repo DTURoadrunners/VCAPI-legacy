@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var userModel = require('./userModel.js');
-var logModel = require('./LogModel.js');
+var logModel = require('./logModel.js');
 var componentModel = require('./componentTypeModel.js');
 
 

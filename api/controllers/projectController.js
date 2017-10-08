@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
   Project = mongoose.model('Project');
 
 
-  exports.list_all_projects = function(req, res) {
+exports.list_all_projects = function(req, res) {
   Project.find({}, function(err, project) {
     if (err)
       res.send(err);

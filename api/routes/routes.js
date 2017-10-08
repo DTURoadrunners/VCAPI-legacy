@@ -1,6 +1,7 @@
 'use strict';
 module.exports = function(app) {
   var project = require('../controllers/projectController');
+  var log = require('../controllers/logController');
 
 
  	// project Routes
@@ -12,5 +13,13 @@ module.exports = function(app) {
 	 	.get(project.read_a_project)
 	 	.put(project.update_a_project)
 	 	.delete(project.delete_a_project);
+
+
+	 // log Routes
+	 app.route('/log')
+	 	.get(log.list_all_log);
+
+	 app.route('/log/:projectId')
+	 	.post(log.create_log_into_project);
 
 };

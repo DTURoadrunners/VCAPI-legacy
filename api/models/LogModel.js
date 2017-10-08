@@ -4,23 +4,22 @@ var Schema = mongoose.Schema;
 
 
 var LogSchema = new Schema({
-    _id: {
+    /*_id: {
         type: String,
         required: 'Log id'
-    },
+    },*/
     submitter: {
         type: String,
         required: 'Submitter id'
     },
     timestamp: {
         type: Date,
-        default: Date.timestamp,
-        required: 'Creation time'
+        default: Date.now 
     },
     comment: {
         type: String,
         required: 'Submition comment'
-    },
+    }/*,
     event: {
         type: {
             type: String,
@@ -40,6 +39,7 @@ var LogSchema = new Schema({
             default: Date.now
         }
     }
+    */
 
 });
 
