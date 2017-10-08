@@ -34,10 +34,13 @@ exports.create_log_into_project = function(req, res){
         		res.json(model);
     	}
 		);
-});
+	});
+}
 
-
-	
-
-
+exports.list_all_logs_from_project = function(req, res){
+	Project.findById(req.params.projectId, function(err, project) {
+	if (err)
+		res.send(err);
+	res.json(project.log);
+	}); 
 }

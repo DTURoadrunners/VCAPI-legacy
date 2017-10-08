@@ -2,6 +2,7 @@
 module.exports = function(app) {
   var project = require('../controllers/projectController');
   var log = require('../controllers/logController');
+  var loginController = require('../controllers/loginController');
 
  	// project Routes
  	app.route('/project')
@@ -18,9 +19,9 @@ module.exports = function(app) {
 	 	.get(log.list_all_log);
 
 	 app.route('/log/:projectId')
-	 	.post(log.create_log_into_project);
+	 	.post(log.create_log_into_project)
+	 	.get(log.list_all_logs_from_project);
 
-		 // login
-	var loginController = require('../controllers/loginController');
+	 // login
 	app.post('/signup', loginController.signup_user);  
 };
