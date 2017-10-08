@@ -53,4 +53,6 @@ exports.signup_user = function(req, res){
 
 };
 
+exports.login = function(req, res){
 
+}

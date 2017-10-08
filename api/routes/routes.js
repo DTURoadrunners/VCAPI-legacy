@@ -21,6 +21,6 @@ module.exports = function(app) {
 	 	.post(log.create_log_into_project);
 
 		 // login
-	var loginController = require('../controllers/LoginController');
+	var loginController = require('../controllers/loginController');
 	app.post('/signup', loginController.signup_user);  
 };
