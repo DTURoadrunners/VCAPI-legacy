@@ -30,6 +30,10 @@ var UserSchema = new Schema({
   Created_date: {
     type: Date,
     default: Date.now
+  },
+  password:{
+	type: String,
+	required: 'Kindly enter a password'	
   }
 });
 

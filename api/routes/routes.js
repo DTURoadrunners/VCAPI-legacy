@@ -3,7 +3,6 @@ module.exports = function(app) {
   var project = require('../controllers/projectController');
   var log = require('../controllers/logController');
 
-
  	// project Routes
  	app.route('/project')
     	.get(project.list_all_projects)
@@ -14,7 +13,6 @@ module.exports = function(app) {
 	 	.put(project.update_a_project)
 	 	.delete(project.delete_a_project);
 
-
 	 // log Routes
 	 app.route('/log')
 	 	.get(log.list_all_log);
@@ -22,4 +20,7 @@ module.exports = function(app) {
 	 app.route('/log/:projectId')
 	 	.post(log.create_log_into_project);
 
+		 // login
+	var loginController = require('../controllers/LoginController');
+	app.post('/signup', loginController.signup_user);  
 };
