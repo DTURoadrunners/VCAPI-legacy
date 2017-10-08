@@ -19,8 +19,8 @@ var LogSchema = new Schema({
     comment: {
         type: String,
         required: 'Submition comment'
-    }/*,
-    event: {
+    },
+    event: [{
         type: {
             type: String,
             enum: ['Created', 'Deleted', 'Changed'],
@@ -37,9 +37,11 @@ var LogSchema = new Schema({
         Created_date: {
             type: Date,
             default: Date.now
-        }
-    }
-    */
+        },
+
+      
+    }]
+    
 
 });
 

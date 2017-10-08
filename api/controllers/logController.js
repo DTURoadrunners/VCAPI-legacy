@@ -20,7 +20,7 @@ exports.create_log_into_project = function(req, res){
 
 	new_log.validate(function (err) {
   	if (err) 
-  		res.send(err);
+  		res.status(500).send(err);
   	else // validation passed
   		Project.findByIdAndUpdate(
 		req.params.projectId,
