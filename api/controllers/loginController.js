@@ -43,7 +43,7 @@ exports.signup_user = function(req, res){
 	//TODO: Verify CAS 	
 	bcrypt.hash(req.body.password, saltRounds, function(err, salt){
 		if(err){
-			res.json(500, error : "Failed to hash password" });
+			res.json(500, {error : "Failed to hash password" });
 			return;
 		}
 		else{
@@ -54,5 +54,5 @@ exports.signup_user = function(req, res){
 };
 
 exports.login = function(req, res){
-
+	
 }
