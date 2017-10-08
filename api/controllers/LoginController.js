@@ -7,21 +7,15 @@ const saltRounds = 2;
 exports.signup_user = function(req, res){
 	if(!req.body) return res.sendStatus(400);
 	if(!req.body.username){
-		res.statusCode = 400;
-		const error = { error : "No username supplied" }
-		res.end(JSON.stringify(error));
+		res.json(400,{ error : "No username supplied" });
 		return;
 	}
 	if(!req.body.password){
-		res.statusCode = 400;
-		const error = { error : "No password supplied" }
-		res.end(JSON.stringify(error));
+		res.json(400, { error : "No password supplied" });
 		return;
 	}
 	if(!req.body.CASCODE){
-		res.statusCode = 400;
-		const error = { error : "No CAS protected password supplied" }
-		res.end(JSON.stringify(error));
+		res.json(400,  {error : "No CAS protected password supplied" });
 		return;
 	}
 		
@@ -31,13 +25,11 @@ exports.signup_user = function(req, res){
 	user.save(function(err, _) {
 		if(err) {
 			if(err.code == 11000){ // Duplicate key
-				const error = { error : "A user with that name already exists" };
-				res.status(400).send(JSON.stringify(error));
+				res.json(400, { error : "A user with that name already exists" });
 			}
 			else {
 					console.error(err);
-					const error = { error : "Failed to save user"};
-					res.status(500).send(JSON.stringify(error));
+					res.json(500, { error : "Failed to save user"});
 			}
 		}
 		else {
@@ -51,8 +43,7 @@ exports.signup_user = function(req, res){
 	//TODO: Verify CAS 	
 	bcrypt.hash(req.body.password, saltRounds, function(err, salt){
 		if(err){
-			const error = { error : "Failed to hash password" };
-			res.status(500).send(JSON.stringify(error));
+			res.json(500, error : "Failed to hash password" });
 			return;
 		}
 		else{
