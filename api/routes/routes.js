@@ -23,4 +23,5 @@ module.exports = function(app) {
 		 // login
 	var loginController = require('../controllers/loginController');
 	app.post('/signup', loginController.signup_user);  
+	app.put('/login', loginController.login);
 };
