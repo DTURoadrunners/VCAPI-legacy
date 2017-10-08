@@ -18,8 +18,10 @@ exports.list_all_log = function(req, res) {
 exports.create_log_into_project = function(req, res){
 	var new_log = new Log(req.body);
 
+	new_log.submitter = "submitter"; //TODO, get from JWT, userID
+
 	new_log.validate(function (err) {
-  	if (err) 
+  	if (err) // validate new_log model
   		res.status(500).send(err);
   	else // validation passed
   		Project.findByIdAndUpdate(

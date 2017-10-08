@@ -20,7 +20,7 @@ var LogSchema = new Schema({
         type: String,
         required: 'Submition comment'
     },
-    event: [{
+    event: {
         type: {
             type: String,
             enum: ['Created', 'Deleted', 'Changed'],
@@ -40,7 +40,7 @@ var LogSchema = new Schema({
         },
 
       
-    }]
+    }
     
 
 });
