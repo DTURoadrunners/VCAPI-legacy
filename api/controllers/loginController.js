@@ -4,7 +4,6 @@ var UserInfo = mongoose.model('User');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var http = require('https');
-var xmlparser = require('xml2js');
 
 const saltRounds = 2;
 
