@@ -30,12 +30,12 @@ exports.create_a_componentType = function(req, res) {
         else {
             Project.findByIdAndUpdate(
                 req.params.projectId,
-                { $push: { "log": new_log, "component_type": new_componentType, "testComponent" : "test" } },
+                { $push: { "log": new_log, "component_type": new_componentType} },
                 { safe: true, upsert: false, new: true },
                 function (err, model) {
                     if (err) {
                         console.log("Validation error2");
-                        console.log(new_componentType);
+                        console.log(err);
                         res.status(500).send(err);
                     }
                     else {

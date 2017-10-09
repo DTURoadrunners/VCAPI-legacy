@@ -1,9 +1,8 @@
 'use strict';
 var mongoose = require('mongoose');
-var Component = mongoose.model('Component');
 var Schema = mongoose.Schema;
 
-var componentModel = require('./componentTypeModel.js');
+var componentModel = require('./Component.js');
 
 var componentTypeSchema = new Schema({
   name: {
@@ -22,10 +21,7 @@ var componentTypeSchema = new Schema({
     type: String,
     require: 'Kindly enter the description of the component type'
   },
-  component: {
-      type: [componentModel.Schema],
-      require : 'lel'
-  }
+  component: [{type: Schema.Types.ObjectId, ref: 'Component'}]
   
 });
 
