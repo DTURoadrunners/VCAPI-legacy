@@ -4,10 +4,6 @@ var Schema = mongoose.Schema;
 
 
 var LogSchema = new Schema({
-    /*_id: {
-        type: String,
-        required: 'Log id'
-    },*/
     submitter: {
         type: String,
         required: 'Submitter id'
@@ -29,10 +25,6 @@ var LogSchema = new Schema({
         target: {
             type: String,
             required: 'Kindly enter the target of the event'
-        },
-        path: {
-            type: String,
-            required: 'Kindly enter the path to the file'
         },
         Created_date: {
             type: Date,

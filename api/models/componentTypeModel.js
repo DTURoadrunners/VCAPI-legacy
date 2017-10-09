@@ -23,10 +23,10 @@ var componentTypeSchema = new Schema({
     require: 'Kindly enter the description of the component type'
   },
   component: {
-    type: [componentModel.Schema],
-    require: 'Kindly enter the component of the component type'
+      type: [componentModel.Schema],
+      require : 'lel'
   }
-
+  
 });
 
 module.exports = mongoose.model('ComponentType', componentTypeSchema);

@@ -1,7 +1,9 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-  ComponentType = mongoose.model('ComponentType');
+    ComponentType = mongoose.model('ComponentType'),
+    Log = mongoose.model('Log'),
+    Project = mongoose.model('Project');
 
 exports.list_all_componentsTypes = function(req, res) {
   ComponentType.find({}, function(err, componentType) {
@@ -15,11 +17,35 @@ exports.list_all_componentsTypes = function(req, res) {
 
 
 exports.create_a_componentType = function(req, res) {
-  var new_componentType = new ComponentType(req.body);
-  new_componentType.save(function(err, componentType) {
-      res.send(err);
-    res.json(componentType);
-  });
+    var new_componentType = new ComponentType(req.body);
+    var submitionComment = req.body.comment;
+    var username = "ThomasTemp";
+    var new_log = new Log({ submitter: username, comment: submitionComment, event: { type: "Created", target: "DenHer" } });
+
+    new_componentType.validate(function (err) {
+        if (err) {
+            console.log("Validation error");
+            res.status(500).send(err);
+        }
+        else {
+            Project.findByIdAndUpdate(
+                req.params.projectId,
+                { $push: { "log": new_log, "component_type": new_componentType, "testComponent" : "test" } },
+                { safe: true, upsert: false, new: true },
+                function (err, model) {
+                    if (err) {
+                        console.log("Validation error2");
+                        console.log(new_componentType);
+                        res.status(500).send(err);
+                    }
+                    else {
+                        res.json(model);
+                    }
+                }
+            );
+        }
+    });
+
 };
 
 

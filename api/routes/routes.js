@@ -3,6 +3,7 @@ module.exports = function(openRouter) {
   var project = require('../controllers/projectController');
   var log = require('../controllers/logController');
   var loginController = require('../controllers/loginController');
+  var componentType = require('../controllers/componentTypeController');
 
  	// project Routes
  	openRouter.route('/project')
@@ -14,6 +15,10 @@ module.exports = function(openRouter) {
 	 	.put(project.update_a_project)
 	 	.delete(project.delete_a_project);
 
+    // componentType Routes
+    openRouter.route('/componentType/:projectId')
+        .post(componentType.create_a_componentType);
+        
 	 // log Routes
 	 openRouter.route('/log')
 	 	.get(log.list_all_log);
