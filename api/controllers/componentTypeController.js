@@ -3,7 +3,6 @@
 var mongoose = require('mongoose'),
     ComponentType = mongoose.model('ComponentType'),
     Log = mongoose.model('Log'),
-    ObjectId = require('mongoose').Types.ObjectId,
     Project = mongoose.model('Project');
 
 exports.list_all_componentsTypes = function (req, res) {
@@ -28,7 +27,6 @@ exports.create_a_componentType = function(req, res) {
 
     new_componentType.validate(function (err) {
         if (err) {
-            console.log("Validation error");
             res.status(500).send(err);
         }
         else {
@@ -38,8 +36,6 @@ exports.create_a_componentType = function(req, res) {
                 { safe: true, upsert: false, new: true },
                 function (err, model) {
                     if (err) {
-                        console.log("Validation error2");
-                        console.log(err);
                         res.status(500).send(err);
                     }
                     else {
@@ -75,12 +71,15 @@ exports.delete_a_componentType = function (req, res) {
     console.log("pre delete");
     Project.update(
         { _id: req.params.projectId },
-        { $pull: { "component_type": new ObjectId(req.params.componentTypeId)  } }, function (err) {
+        { $pull: { "component_type": {"_id" : req.params.componentTypeId}} }, function (err, model) {
+            console.log(req.params.projectId);
+            console.log(req.params.componentTypeId);
             if (err) {
+                console.log(err)
                 res.status(500).send(err);
             }
             else {
-                res.status(200);
+                res.status(200).send("deleted");
             }
         }
     );
