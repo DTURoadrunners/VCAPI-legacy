@@ -17,8 +17,8 @@ var ProjectSchema = new Schema({
 		default: Date.now 
 	},
 	users: [userModel.schema],
-	log: [logModel.schema],
-	component_type: [componentModel.schema]
+    log: [logModel.schema],
+    component_type: [{ type: Schema.Types.ObjectId, ref:'ComponentType' }]
 
 });
 

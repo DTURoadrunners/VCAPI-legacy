@@ -3,14 +3,18 @@
 var mongoose = require('mongoose'),
     ComponentType = mongoose.model('ComponentType'),
     Log = mongoose.model('Log'),
+    ObjectId = require('mongoose').Types.ObjectId,
     Project = mongoose.model('Project');
 
-exports.list_all_componentsTypes = function(req, res) {
-  ComponentType.find({}, function(err, componentType) {
-    if (err)
-      res.send(err);
-    res.json(componentType);
-  });
+exports.list_all_componentsTypes = function (req, res) {
+    Project.findById(req.params.projectId, function (err, project) {
+        if (err) {
+            res.status(500).send(err);
+        }
+        else {
+            res.json(project.component_type);
+        }
+    })
 };
 
 
@@ -19,8 +23,8 @@ exports.list_all_componentsTypes = function(req, res) {
 exports.create_a_componentType = function(req, res) {
     var new_componentType = new ComponentType(req.body);
     var submitionComment = req.body.comment;
-    var username = "ThomasTemp";
-    var new_log = new Log({ submitter: username, comment: submitionComment, event: { type: "Created", target: "DenHer" } });
+    var username = "ThomasTemp"; //TODO: Get user id from JWT
+    var new_log = new Log({ submitter: username, comment: submitionComment, event: { type: "Created", target: new_componentType._id } });
 
     new_componentType.validate(function (err) {
         if (err) {
@@ -67,12 +71,18 @@ exports.update_a_componentType = function(req, res) {
 };
 
 
-exports.delete_a_componentType = function(req, res) {
-  ComponentType.remove({
-    _id: req.params.componentTypeId
-  }, function(err, component) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'ComponentType successfully deleted' });
-  });
+exports.delete_a_componentType = function (req, res) {
+    console.log("pre delete");
+    Project.update(
+        { _id: req.params.projectId },
+        { $pull: { "component_type": new ObjectId(req.params.componentTypeId)  } }, function (err) {
+            if (err) {
+                res.status(500).send(err);
+            }
+            else {
+                res.status(200);
+            }
+        }
+    );
+    console.log("post delete");
 };
