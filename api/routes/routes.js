@@ -17,7 +17,8 @@ module.exports = function(openRouter) {
 
     // componentType Routes
     openRouter.route('/componentType/:projectId/:componentTypeId')
-        .put(componentType.delete_a_componentType);
+        .delete(componentType.delete_a_componentType)
+        .put(componentType.update_a_componentType);
 
     openRouter.route('/componentType/:projectId')
         .get(componentType.list_all_componentsTypes)

@@ -13,8 +13,7 @@ var LogSchema = new Schema({
         default: Date.now 
     },
     comment: {
-        type: String,
-        required: 'Submition comment'
+        type: String
     },
     event: {
         type: {

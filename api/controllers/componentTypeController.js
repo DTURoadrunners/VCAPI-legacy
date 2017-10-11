@@ -50,24 +50,59 @@ exports.create_a_componentType = function(req, res) {
 
 
 exports.read_a_componentType = function(req, res) {
-  ComponentType.findById(req.params.componentTypeId, function(err, componentType) {
-    if (err)
-      res.send(err);
-    res.json(componentType);
-  });
+  Project.findById(req.params.projectId, function (err, project) {
+        if (err) {
+            res.status(500).send(err);
+        }
+        else {
+            var componentType = project.component_type.id(req.params.componentTypeId);
+            res.json(componentType);
+        }
+    })
 };
 
-
 exports.update_a_componentType = function(req, res) {
-  ComponentType.findOneAndUpdate({_id: req.params.componentTypeId}, req.body, {new: true}, function(err, componentType) {
-    if (err)
-      res.send(err);
-    res.json(componentType);
-  });
+    var submitionComment = req.body.comment;
+    console.log(submitionComment);
+    var username = "ThomasTemp"; //TODO: Get user id from JWT
+    var new_log = new Log({ submitter: username, comment: submitionComment, event: { type: "Changed", target: req.params.componentTypeId } });
+    console.log(new_log);
+    Project.findById(req.params.projectId, function (err, project) {
+        if (err) {
+            res.status(500).send(err);
+        }
+        else {
+            var componentType = project.component_type.id(req.params.componentTypeId);
+            componentType.name = req.body.name;
+            componentType.category = req.body.category;
+            componentType.storage = req.body.storage;
+            componentType.description = req.body.description;
+            project.save(function (err, model) {
+                    if (err) {
+                        res.status(500).send(err);
+                    }
+                    else {
+                        project.update({ $push: { "log": new_log} },{ safe: true, upsert: false, new: true }, function (err, model) {
+                                if (err) {
+                                    res.status(500).send(err);
+                                }
+                                else {
+                                    res.json(model);
+                                }
+                            }
+                        );
+                    }
+                }
+            );
+        }
+    })
 };
 
 
 exports.delete_a_componentType = function (req, res) {
+    var submitionComment = req.body.comment;
+    var username = "ThomasTemp"; //TODO: Get user id from JWT
+    var new_log = new Log({ submitter: username, comment: submitionComment, event: {type: "Deleted", target: req.params.componentTypeId} });
     console.log("pre delete");
     Project.update(
         { _id: req.params.projectId },
@@ -79,7 +114,15 @@ exports.delete_a_componentType = function (req, res) {
                 res.status(500).send(err);
             }
             else {
-                res.status(200).send("deleted");
+                Project.update({ _id: req.params.projectId }, { $push: { "log": new_log} },{ safe: true, upsert: false, new: true }, function (err, model) {
+                                if (err) {
+                                    res.status(500).send(err);
+                                }
+                                else {
+                                    res.json(model);
+                                }
+                            }
+                        );
             }
         }
     );
