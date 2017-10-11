@@ -73,27 +73,33 @@ exports.update_a_componentType = function(req, res) {
         }
         else {
             var componentType = project.component_type.id(req.params.componentTypeId);
-            componentType.name = req.body.name;
-            componentType.category = req.body.category;
-            componentType.storage = req.body.storage;
-            componentType.description = req.body.description;
-            project.save(function (err, model) {
-                    if (err) {
-                        res.status(500).send(err);
-                    }
-                    else {
-                        project.update({ $push: { "log": new_log} },{ safe: true, upsert: false, new: true }, function (err, model) {
-                                if (err) {
-                                    res.status(500).send(err);
+            
+            if(componentType == null){
+                res.status(500).send({"error": "wrong id"});
+            } else {
+
+                componentType.name = req.body.name;
+                componentType.category = req.body.category;
+                componentType.storage = req.body.storage;
+                componentType.description = req.body.description;
+                project.save(function (err, model) {
+                        if (err) {
+                            res.status(500).send(err);
+                        }
+                        else {
+                            project.update({ $push: { "log": new_log} },{ safe: true, upsert: false, new: true }, function (err, model) {
+                                    if (err) {
+                                        res.status(500).send(err);
+                                    }
+                                    else {
+                                        res.json(model);
+                                    }
                                 }
-                                else {
-                                    res.json(model);
-                                }
-                            }
-                        );
+                            );
+                        }
                     }
-                }
-            );
+                );
+            }
         }
     })
 };
