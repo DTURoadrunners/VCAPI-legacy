@@ -4,6 +4,7 @@ module.exports = function(openRouter) {
   var log = require('../controllers/logController');
   var loginController = require('../controllers/loginController');
   var componentType = require('../controllers/componentTypeController');
+  var component = require('../controllers/componentController');
 
  	// project Routes
  	openRouter.route('/project')
@@ -23,6 +24,10 @@ module.exports = function(openRouter) {
     openRouter.route('/componentType/:projectId')
         .get(componentType.list_all_componentsTypes)
         .post(componentType.create_a_componentType);
+
+    // component Routes
+    openRouter.route('/component/:projectId/componentType/:componentTypeId')
+    	.post(component.create_a_component);
         
 	 // log Routes
 	 openRouter.route('/log')
