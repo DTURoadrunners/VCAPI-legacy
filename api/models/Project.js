@@ -16,7 +16,14 @@ var ProjectSchema = new Schema({
 		type: Date,
 		default: Date.now 
 	},
-	users: [userModel.schema],
+	users: [{
+			userid: Number,
+			rank : {
+				type: String, 
+				enum: ['superuser', 'admin', 'user', 'guest'],
+				default: 'guest'
+			}
+	}],
 	log: [logModel.schema],
 	component_type: [componentModel.schema]
 

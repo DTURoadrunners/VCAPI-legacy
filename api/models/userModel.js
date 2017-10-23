@@ -22,11 +22,6 @@ var UserSchema = new Schema({
   phone_number_2: {
     type: String
   },
-  role: {
-    type: String,
-    enum: ['superuser', 'admin', 'user', 'guest'],
-    required: 'Kindly enter a role for the user'
-  },
   Created_date: {
     type: Date,
     default: Date.now

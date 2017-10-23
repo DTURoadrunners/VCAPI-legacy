@@ -1,4 +1,6 @@
 'use strict';
+var mongoose = require('mongoose');
+var project = mongoose.model('Project');
 
 //secure routing
 module.exports = function(secureRouter) {
@@ -13,6 +15,12 @@ module.exports = function(secureRouter) {
 					res.sendStatus(401);
 				} else {
 					req.decoded = decoded;
+					var projectId = req.path['projectId'];
+					project.findById(projectId, function(err, document){
+						if(err)
+							return res.send(err);
+						req.rank = document.users[decoded.uid].rank;
+					});
 					next();
 				}
 			});
@@ -20,7 +28,6 @@ module.exports = function(secureRouter) {
 			return res.sendStatus(401);
 		}
 	});
-
 
 	secureRouter.get('/testSecure', function (req, res) {
   		res.send('hello world from Secure')
