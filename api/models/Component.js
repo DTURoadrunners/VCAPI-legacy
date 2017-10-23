@@ -8,6 +8,10 @@ var ComponentSchema = new Schema({
 		enum: ['Stored', 'In-use', 'Broken', 'Expired'],
 		required: 'Kindly enter the status(Stored, In-use, Broken or Expired) of the component'
 	},
+	name : {
+		type: String,
+		required: 'Kindly enter the name of the component'
+	},
 	comment : {
 		type: String,
 		required: 'Kindly enter the comment of the component'

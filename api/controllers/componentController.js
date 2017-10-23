@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
   Component = mongoose.model('Component'),
   Project = mongoose.model('Project'),
   ComponentType = mongoose.model('ComponentType'),
+  Log = mongoose.model('Log'),
   ComponentLog = mongoose.model('ComponentLog');
 
 exports.list_all_components = function(req, res) {
@@ -21,9 +22,15 @@ exports.create_a_component = function(req, res) {
     var new_component = new Component(req.body);
     var username = "ThomasTemp"; //TODO: Get user id from JWT
     var projectId = req.params.projectId;
+    var submitionComment = req.body.logComment;
     var ComponentTypeId = req.params.componentTypeId;    
+    var new_log = new Log({ submitter: username, comment: submitionComment, event: { type: "Created", target: new_component._id } });
 
-    
+    if(!submitionComment){
+        res.json(400, { error : "No logComment supplied" });
+        return;
+    }
+
     new_component.validate(function(err) {
     if (err) 
         res.status(500).send(err);  
@@ -33,7 +40,7 @@ exports.create_a_component = function(req, res) {
     
     Project.findOneAndUpdate(
         { "_id" : projectId, "component_type._id" : ComponentTypeId}, 
-        {$push : {"component_type.$.component" : new_component}}, 
+        {$push : {"component_type.$.component" : new_component, "log": new_log,}}, 
         { safe: true, upsert: false, new: true },
         function(err, model){
             if (err) {
