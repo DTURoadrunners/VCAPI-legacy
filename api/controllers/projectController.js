@@ -1,7 +1,10 @@
 'use strict';
 
+var logController = require('./logController')
+
 var mongoose = require('mongoose'),
-  Project = mongoose.model('Project');
+Log = mongoose.model('Log'),
+Project = mongoose.model('Project');
 
 
 exports.list_all_projects = function(req, res) {
@@ -12,12 +15,18 @@ exports.list_all_projects = function(req, res) {
   });
 };
 
-exports.create_project = function(req, res) {
-  var new_project = new Project(req.body);
-  new_project.save(function(err, project) {
-      res.send(err);
-  res.status(200)
-  });
+exports.create_project = function(req, res) { 
+    var new_project = new Project(req.body);
+    var submitionComment = req.body.comment;
+    var submitter = "ThomasTemp"; //TODO: Get user id from JWT
+
+    new_project.save(function(err, model) {
+        if(err){
+             res.send(err);
+         } else {
+            logController.create_log(model._id, submitter, submitionComment, "Created", model._id, res);            
+         }     
+    });
 };
 
 

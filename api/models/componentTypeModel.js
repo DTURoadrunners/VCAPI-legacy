@@ -21,7 +21,8 @@ var componentTypeSchema = new Schema({
     type: String,
     require: 'Kindly enter the description of the component type'
   },
-  component:  [componentModel.schema]//[{type: Schema.Types.ObjectId, ref: 'Component'}]
+  document: [{type: Schema.Types.ObjectId, ref: 'Document'}],
+  component:  [componentModel.schema]
   
 });
 

@@ -28,7 +28,10 @@ module.exports = function(openRouter) {
     // component Routes
     openRouter.route('/component/:projectId/componentType/:componentTypeId')
     	.post(component.create_a_component);
-        
+    
+    openRouter.route('/project/:projectId/componentType/:componentTypeId/component/:componentId')
+    	.get(component.read_a_component);
+
 	 // log Routes
 	 openRouter.route('/log')
 	 	.get(log.list_all_log);

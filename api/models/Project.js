@@ -25,7 +25,7 @@ var ProjectSchema = new Schema({
 			}
 	}],
 	log: [logModel.schema],
-	component_type: [componentModel.schema]
+	component_type: [{type: Schema.Types.ObjectId, ref: 'ComponentType'}],
 
 });
 

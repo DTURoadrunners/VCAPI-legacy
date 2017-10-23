@@ -19,10 +19,7 @@ var ComponentSchema = new Schema({
 	timestamp : {
 		type: Date,
 		default: Date.now 
-	},
-	document : [{type: Schema.Types.ObjectId, ref: 'Document'}],
-	componentLog: [{type: Schema.Types.ObjectId, ref: 'ComponentLog'}]
-
+	}
 });
 
 module.exports = mongoose.model('Component', ComponentSchema);

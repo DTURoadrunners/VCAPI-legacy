@@ -25,12 +25,6 @@ var LogSchema = new Schema({
             type: String,
             required: 'Kindly enter the target of the event'
         },
-        Created_date: {
-            type: Date,
-            default: Date.now
-        },
-
-      
     }
     
 

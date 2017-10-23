@@ -53,11 +53,22 @@ exports.create_a_component = function(req, res) {
 
 
 exports.read_a_component = function(req, res) {
-  Component.findById(req.params.componentId, function(err, component) {
-    if (err)
-      res.send(err);
-    res.json(component);
-  });
+    var projectId = req.params.projectId;
+    var ComponentTypeId = req.params.componentTypeId; 
+    var ComponentId = req.params.componentId; 
+   
+    Project.findById(   
+        { "_id" : projectId, "component_type._id" : ComponentTypeId, "component_type.component._id" : ComponentId},
+        function (err, model) {
+        if (err) {
+            res.status(500).send(err);
+        }
+        else {
+            //var componentType = project.component_type.id(req.params.componentTypeId);
+            res.json(model.component_type);
+        }
+    })
+
 };
 
 

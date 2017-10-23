@@ -14,10 +14,6 @@ var DocumentSchema = new Schema({
   description: {
     type: String,
     required: 'Kindly enter the description of the file'
-  },
-  Created_date: {
-    type: Date,
-    default: Date.now
   }
 });
 
