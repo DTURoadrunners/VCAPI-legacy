@@ -19,31 +19,21 @@ exports.list_all_components = function(req, res) {
 
 exports.create_a_component = function(req, res) {
     var new_component = new Component(req.body);
-    var submitionComment = req.body.comment;
     var username = "ThomasTemp"; //TODO: Get user id from JWT
     var projectId = req.params.projectId;
-    var ComponentTypeId = req.params.componentTypeId;
-    var new_componentLog = new ComponentLog(
-          { submitter: username, 
-            comment: "submitionComment", 
-            event: { 
-                type: "Created", 
-                target: new_component._id 
-              } 
-          });
-
+    var ComponentTypeId = req.params.componentTypeId;    
 
     
     new_component.validate(function(err) {
-        if (err) 
-            res.status(500).send(err);  
-            return;
-        });
+    if (err) 
+        res.status(500).send(err);  
+        return;
+    });
     
-
+    
     Project.findOneAndUpdate(
         { "_id" : projectId, "component_type._id" : ComponentTypeId}, 
-        {$push : {"component_type.$.component" : new_component}}, // ,need log "component_type.$.component.componentLog": new_componentLog
+        {$push : {"component_type.$.component" : new_component}}, 
         { safe: true, upsert: false, new: true },
         function(err, model){
             if (err) {
@@ -52,60 +42,6 @@ exports.create_a_component = function(req, res) {
                 res.json(model.component_type);
             }
         });
-
-
-    /*
-    Project.findOneAndUpdate(
-        {
-            "_id" : projectId,
-            "component_type" : {
-                "$elemMatch" : {
-                    "_id" : ComponentTypeId
-                }
-            }
-        },
-        {
-            $push : {  "component_type.$[componentType].component" : new_component  }
-        },
-        {
-            "arrayFilters" : [{"componentType._id" : ComponentTypeId}]
-        },
-        function(err, model){
-            if (err) {
-                res.status(500).send(err);
-            } else {
-                res.json(model.component_type);
-            }
-        }
-    );
-
-    /*
-
-
-  /*
-  new_component.validate(function(err) {
-    if (err) {
-        res.status(500).send(err);  
-    } else {
-      var componentType = project.component_type.id(req.params.componentTypeId);
-
-      
-       Project.findByIdAndUpdate(
-            req.params.projectId,
-            { $push: { "log": new_log, "component_type": new_componentType} },
-            { safe: true, upsert: false, new: true },
-            function (err, model) {
-                if (err) {
-                    res.status(500).send(err);
-                }
-                else {
-                    res.json(model);
-                }
-            }
-        );
-    }
-  });
-  */
 };
 
 
