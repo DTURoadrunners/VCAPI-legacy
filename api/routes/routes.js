@@ -28,12 +28,9 @@ module.exports = function(openRouter) {
     openRouter.route('/component/:projectId/componentType/:componentTypeId')
     	.post(component.create_a_component);
      // Is this not the same as getting the list of projects?  
-	 // log Routes
-	 openRouter.route('/log')
-	 	.get(log.list_all_log);
 
+	 // log Routes
 	 openRouter.route('/log/:projectId')
-	 	.post(log.create_log_into_project)
 	 	.get(log.list_all_logs_from_project);
 
 	 // login
