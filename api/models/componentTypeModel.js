@@ -21,6 +21,10 @@ var componentTypeSchema = new Schema({
     type: String,
     require: 'Kindly enter the description of the component type'
   },
+  visible: {
+    type: Boolean,
+    default: true
+  },
   document: [{type: Schema.Types.ObjectId, ref: 'Document'}],
   component:  [componentModel.schema]
   

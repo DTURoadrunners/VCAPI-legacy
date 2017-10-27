@@ -17,11 +17,14 @@ module.exports = function(openRouter) {
 	
     // componentType Routes
     openRouter.route('/project/:projectId/componentType/:componentTypeId')
-        .delete(componentType.delete_a_componentType)
-        .put(componentType.update_a_componentType);
+        .put(componentType.update_a_componentType)
+        .delete(componentType.delete_a_componentType);
+
+    openRouter.route('/componentType/:componentTypeId')
+        .get(componentType.read_a_componentType);
 
     openRouter.route('/project/:projectId/componentType/')
-        .get(componentType.list_all_componentsTypes)
+        .get(componentType.list_all_componentsTypes_by_project)
         .post(componentType.create_a_componentType);
 
     // component Routes
