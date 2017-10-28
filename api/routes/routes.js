@@ -28,12 +28,16 @@ module.exports = function(openRouter) {
         .post(componentType.create_a_componentType);
 
     // component Routes
-    openRouter.route('/component/:projectId/componentType/:componentTypeId')
+    openRouter.route('/component/componentType/:componentTypeId') //Skulle det ikke hellere være en del af componentType: /componentType/:componentTypeId/component
         .post(component.create_a_component)
         .get(component.list_all_components);
 
-    openRouter.route('/component/:projectId/componentType/:componentTypeId/component/:componentId')
+    openRouter.route('/componentType/:componentTypeId/component/:componentId')
         .put(component.update_a_component);
+        //.delete(component.delete_a_component); //<-- samme problem som update
+
+    openRouter.route('/component/:componentId')
+        .get(component.read_a_component);
 
 	 // log Routes
 	 openRouter.route('/log/:projectId')
