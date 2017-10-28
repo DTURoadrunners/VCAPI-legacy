@@ -1,4 +1,4 @@
-require('./Component');
+require('./ComponentModel');
 require('./ComponentLogModel');
 require('./documentModel');
 require('./componentTypeModel');

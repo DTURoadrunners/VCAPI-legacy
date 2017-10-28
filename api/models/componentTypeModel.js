@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var componentModel = require('./Component.js');
+var componentModel = require('./ComponentModel.js');
 
 var componentTypeSchema = new Schema({
   name: {
