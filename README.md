@@ -1,3 +1,7 @@
+##This project is deprecated
+Due to limitations of MongoDB in terms of database consistency this implementation has been abandoned.
+Go to: https://github.com/DTURoadrunners/VCAPI
+
 ## Requirements
 - [Node and npm](http://nodejs.org)
 - MongoDB: Make sure you have your own local or remote MongoDB database URI configured in `server.js` # TODO config file
